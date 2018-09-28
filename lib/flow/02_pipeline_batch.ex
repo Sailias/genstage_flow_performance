@@ -14,9 +14,21 @@ defmodule GenstageFlowTalk.Flow.PipelineBatch do
   The first stage maps and reduces.  
   Reduce will reduce the values of the current window, which is all the Flow.map values.
   So this will fetch all data, map it, and reduce it.
-  Then it emits the state as an array.
+  Then it emits the state as an array, which we map over and perform many inserts.
+  
+  
+  Problem:
 
-  The problem here is that we don't start writing data until all records have been mapped and reduced
+  We don't start writing data until all records have been mapped and reduced
+
+  
+  Solution:
+
+  We need to start inserting as we're mapping.  To do this, we need to create a new
+  create a window trigger that will cause Flow.reduce to run many times instead of just once.
+
+  Then we'll be inserting as we're still fetching
+
   """
 
   alias GenstageFlowTalk.Flow.Stream

@@ -11,13 +11,23 @@ defmodule GenstageFlowTalk.Flow.PipelineBatchReduceStage do
 
   [stream] -> [Map1 producer-consumers] -> [Reduce produce-consumers] -> [Map2 consumers]
 
-  The first stage maps and reduces.  
-  Reduce will reduce the values of the current window, which is all the Flow.map values.
-  So this will fetch all data, map it, and reduce it.
+  The first stage maps a number of events (500 to start with).  
+  Reduce will reduce the values of the current window, which is now batches of 100 records
   Then it emits the state as an array.
 
-  The problem here is that we Flow wait for Flow to reduce all data.
-  We don't start writing data until all records have been mapped and reduced
+  We then partition this into another set of consumers that will do the writing.
+
+  
+  
+  Problem:
+
+  The first part of the Flow fetches 500 records before starting (the default Flow behaviour)
+  So there is a bit of waiting before writing.
+
+  
+  Solution:
+
+  Fetch fewer records from the stream and start processing them sooner
   """
 
   alias GenstageFlowTalk.Flow.Stream

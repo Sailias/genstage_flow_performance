@@ -6,7 +6,16 @@ defmodule GenstageFlowTalk.Flow.PipelineList do
 
   [stream] -> [Map consumers] -> Enum -> Insert
 
-  This will run the entire Flow, convert it to a list and insert it all at once
+  
+  
+  Problem:
+  
+  We fetch all of the events, map them, convert them to a list, then insert them ALL AT ONCE!!
+  We should be inserting smaller batches
+  
+  Solution:
+
+  Group the events into smaller batches and perform many inserts
 
   """
 

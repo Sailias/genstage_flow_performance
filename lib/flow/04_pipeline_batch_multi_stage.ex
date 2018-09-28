@@ -11,13 +11,6 @@ defmodule GenstageFlowTalk.Flow.PipelineMultiStageBatch do
 
   [stream] -> [Stream Collect producer-consumers] - [Map1 producer-consumers] -> [Reduce produce-consumers] -> [Map2 consumers]
 
-  The first stage maps and reduces.  
-  Reduce will reduce the values of the current window, which is all the Flow.map values.
-  So this will fetch all data, map it, and reduce it.
-  Then it emits the state as an array.
-
-  The problem here is that we Flow wait for Flow to reduce all data.
-  We don't start writing data until all records have been mapped and reduced
   """
 
   alias GenstageFlowTalk.Flow.Stream
