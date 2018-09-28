@@ -18,8 +18,9 @@ GenstageFlowTalk.Flow.PipelineMultiStageBatch.run()
 
 # Performance measuring
 
-http://teamon.eu/2016/tuning-elixir-genstage-flow-pipeline-processing/
-http://teamon.eu/2016/measuring-visualizing-genstage-flow-with-gnuplot/
+Based on:
+
+[this](http://teamon.eu/2016/tuning-elixir-genstage-flow-pipeline-processing/) and [this](http://teamon.eu/2016/measuring-visualizing-genstage-flow-with-gnuplot/)
 
 Look at your log files, check the time stamps.
 
