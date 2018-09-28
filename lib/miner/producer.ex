@@ -24,7 +24,14 @@ defmodule GenstageFlowTalk.Miner.Producer do
   end
 
   def handle_info(:mine, queue_length) do
-    events = GenstageFlowTalk.Miner.EventGenerator.generate_events(200)
+    # This fetches too many events based on our consumers that can only process a certain amount.
+    # Too much data is fetched and just sits in memory.
+    # Look at the progress graph when using this.
+    events = GenstageFlowTalk.Miner.EventGenerator.generate_events(800)
+
+    # Comment the one above and use this to see an improvement in fetching data.
+    # We fetch less data, and hold less in memory.
+    # events = GenstageFlowTalk.Miner.EventGenerator.generate_events(200)
 
     event_count = Enum.count(events)
     new_queue_length = Enum.max([0, queue_length - event_count])
